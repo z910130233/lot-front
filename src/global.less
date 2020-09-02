@@ -1,0 +1,171 @@
+@import '~antd/es/style/themes/default.less';
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.colorWeak {
+  filter: invert(80%);
+}
+
+.ant-layout {
+  min-height: 100vh;
+}
+
+canvas {
+  display: block;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+@media (max-width: @screen-xs) {
+  .ant-table {
+    width: 100%;
+    overflow-x: auto;
+
+    &-thead > tr,
+    &-tbody > tr {
+      > th,
+      > td {
+        white-space: pre;
+
+        > span {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+// 兼容IE11
+@media screen and(-ms-high-contrast: active), (-ms-high-contrast: none) {
+  body .ant-design-pro > .ant-layout {
+    min-height: 100vh;
+  }
+}
+
+
+.tableLayout {
+  width: auto;
+  height: 60px;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.tablePresentation {
+  display: flex;
+  flex-direction: row;
+}
+
+.tablePresentation div {
+  margin: 10px;
+}
+
+.optional {
+
+}
+
+.addButton {
+  margin-right: 10px;
+}
+
+.addButton Button{
+  margin: 5px;
+}
+
+.TextStyles {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.clearFix {
+  margin-bottom: -30px;
+}
+
+.clearFloat {
+  clear: both;
+  height: 0;
+  font-size: 1px;
+  line-height: 0px;
+}
+
+.linkMargins a {
+  margin: 5px;
+}
+
+.layout {
+  padding: 0 20px;
+  background-color: white;
+}
+
+.headers {
+  height: auto !important;
+  //height: 60px;
+  margin-bottom: 20px;
+  display: flex;
+  //flex-direction: row;
+  align-items: center;
+  min-height: 60px;
+}
+
+.contents {
+  padding: 0 10px;
+  background-color: white;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.optionDiv {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.selectYesDot {
+  .dot;
+  margin-right: 8px;
+  background-color: #19be6b;
+}
+
+.selectNoDot {
+  .dot;
+  margin-right: 8px;
+  background-color: #f44336;
+}
+
+.editors {
+  height: 430px;
+}
+
+.Arrowhead {
+  margin: 10px;
+  font-size: 18px;
+}
+
+.ImgList {
+  //display: inline-block;
+}
+
+.ImgList div {
+  margin: 2px;
+  display: inline-block;
+}
