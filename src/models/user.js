@@ -1,5 +1,5 @@
-import { queryCurrent, query as queryUsers, queryGet } from '@/services/user';
-import { handleLocalStorage } from '@/utils/localStroage';
+import {queryCurrent, query as queryUsers, queryGet, getRoutes} from '@/services/user';
+import {handleLocalStorage} from '@/utils/localStroage';
 
 const UserModel = {
   namespace: 'user',
@@ -7,7 +7,7 @@ const UserModel = {
     currentUser: {},
   },
   effects: {
-    * fetch(_, { call, put }) {
+    * fetch(_, {call, put}) {
       const response = yield call(queryUsers);
       yield put({
         type: 'save',
@@ -15,11 +15,11 @@ const UserModel = {
       });
     },
 
-    * fetchCurrent(_, { call, put }) {
+    * fetchCurrent(_, {call, put}) {
       // const response = yield call(queryCurrent);
       // console.log(response);
       const username = handleLocalStorage('get', 'username');
-      if(username){
+      if (username) {
         const result = yield call(queryGet, username);
         yield put({
           type: 'saveCurrentUser',
@@ -27,10 +27,22 @@ const UserModel = {
         });
       }
     },
+    * getRoutes(_, {call, put}) {
+      const result = yield call(getRoutes);
+      yield put({
+        type: 'updateState',
+        payload: result,
+      });
+      console.log(result)
+      console.log("调用了")
+    }
   },
   reducers: {
     saveCurrentUser(state, action) {
-      return { ...state, currentUser: action.payload || {} };
+      return {...state, currentUser: action.payload || {}};
+    },
+    updateState(state, { payload }) {
+      return { ...state, ...payload };
     },
 
     changeNotifyCount(

@@ -2,7 +2,12 @@ import 'braft-editor/dist/index.css';
 import React from 'react';
 import BraftEditor from 'braft-editor';
 import style from '../global.less';
+import 'braft-extensions/dist/code-highlighter.css'
+import CodeHighlighter from 'braft-extensions/dist/code-highlighter'
 
+BraftEditor.use(CodeHighlighter({
+  includeEditors: ['editor-with-code-highlighter'],
+}))
 
 // 定义rem基准值
 const sizeBase = 23.4375;
@@ -166,6 +171,7 @@ class Editor extends React.Component {
       //   <div className="output-content">{value}</div>
       <div className="my-editor">
         <BraftEditor
+          id="editor-with-code-highlighter"
           value={editorState}
           converts={{ unitImportFn, unitExportFn }}
           extendControls={extendControls}

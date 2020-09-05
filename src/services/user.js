@@ -12,3 +12,7 @@ export async function queryGet(username) {
 export async function queryNotices() {
   return request('/api/notices');
 }
+
+export async function getRoutes() {
+  return request('/api/example');
+}

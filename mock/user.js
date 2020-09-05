@@ -123,7 +123,7 @@ export default {
       status: 500,
       error: 'error',
       message: 'error',
-      path: '/base/category/list',
+      "path": '/base/category/list',
     });
   },
   'GET /api/404': (req, res) => {
@@ -132,7 +132,7 @@ export default {
       status: 404,
       error: 'Not Found',
       message: 'No message available',
-      path: '/base/category/list/2121212',
+      "path": '/base/category/list/2121212',
     });
   },
   'GET /api/403': (req, res) => {
@@ -141,7 +141,7 @@ export default {
       status: 403,
       error: 'Unauthorized',
       message: 'Unauthorized',
-      path: '/base/category/list',
+      "path": '/base/category/list',
     });
   },
   'GET /api/401': (req, res) => {
@@ -150,7 +150,7 @@ export default {
       status: 401,
       error: 'Unauthorized',
       message: 'Unauthorized',
-      path: '/base/category/list',
+      "path": '/base/category/list',
     });
   },
   'GET  /api/login/captcha': getFakeCaptcha,

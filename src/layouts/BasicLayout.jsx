@@ -1,17 +1,19 @@
 /**
  * Ant Design Pro v4 use `@ant-design/pro-layout` to handle Layout.
- * You can view component api by:
+ * You can view "component" api by:
  * https://github.com/ant-design/ant-design-pro-layout
  */
-import ProLayout, { DefaultFooter } from '@ant-design/pro-layout';
-import React, { useEffect } from 'react';
-import { Link, useIntl, connect } from 'umi';
-import { GithubOutlined } from '@ant-design/icons';
-import { Result, Button } from 'antd';
+import ProLayout, {DefaultFooter} from '@ant-design/pro-layout';
+import React, {useEffect, useState} from 'react';
+import {Link, useIntl, connect} from 'umi';
+import {GithubOutlined} from '@ant-design/icons';
+import {Result, Button} from 'antd';
 import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
-import { getAuthorityFromRouter } from '@/utils/utils';
+import {getAuthorityFromRouter} from '@/utils/utils';
 import logo from '../assets/logo.svg';
+import user from "../../mock/user";
+import iconEnum from "@/custdef/IconEnum";
 
 const noMatch = (
   <Result
@@ -29,11 +31,28 @@ const noMatch = (
 /**
  * use Authorized check all menu item
  */
+let menuData = [];
+
+// const menuDataRenders = () =>
+//   routesList.map(item => {
+//     const localItem = {...item, children: item.children ? menuDataRenders(item.children) : []};
+//     return Authorized.check(item.authority, localItem, null);
+//   });
+
 const menuDataRender = menuList =>
   menuList.map(item => {
-    const localItem = { ...item, children: item.children ? menuDataRender(item.children) : [] };
+    const localItem = {...item, children: item.children ? menuDataRender(item.children) : []};
     return Authorized.check(item.authority, localItem, null);
   });
+
+const mappingIcon = (menuData) => {
+  const mappingMenus = menuData.map(item => ({
+    ...item,
+    icon: iconEnum[item.icon],
+    children: item.children ? mappingIcon(item.children) : [],
+  }));
+  return mappingMenus;
+};
 
 const defaultFooterDom = (
   <DefaultFooter
@@ -47,7 +66,7 @@ const defaultFooterDom = (
       },
       {
         key: 'github',
-        title: <GithubOutlined />,
+        title: <GithubOutlined/>,
         href: 'https://github.com/ant-design/ant-design-pro',
         blankTarget: true,
       },
@@ -66,6 +85,7 @@ const BasicLayout = props => {
     dispatch,
     children,
     settings,
+    state,
     location = {
       pathname: '/',
     },
@@ -73,11 +93,20 @@ const BasicLayout = props => {
   /**
    * constructor
    */
+  const {user} = state;
+  const {routes} = user;
+  menuData = typeof (routes) == "undefined" && routes == null ? [] : routes;
+  console.log(menuData)
+  const iconMenuData = mappingIcon(menuData);
+  console.log(iconMenuData)
 
   useEffect(() => {
     if (dispatch) {
       dispatch({
         type: 'user/fetchCurrent',
+      });
+      dispatch({
+        type: 'user/getRoutes'
       });
     }
   }, []);
@@ -97,7 +126,7 @@ const BasicLayout = props => {
   const authorized = getAuthorityFromRouter(props.route.routes, location.pathname || '/') || {
     authority: undefined,
   };
-  const { formatMessage } = useIntl();
+  const {formatMessage} = useIntl();
   return (
     <ProLayout
       logo={logo}
@@ -123,7 +152,7 @@ const BasicLayout = props => {
             id: 'menu.home',
           }),
         },
-        // ...routers,   //面包屑设置
+        ...routers,   //面包屑设置
       ]}
       itemRender={(route, params, routes, paths) => {
         const first = routes.indexOf(route) === 0;
@@ -134,8 +163,9 @@ const BasicLayout = props => {
         );
       }}
       // footerRender={() => defaultFooterDom}
-      menuDataRender={menuDataRender}
-      rightContentRender={() => <RightContent />}
+      // menuDataRender={menuDataRender}
+      menuDataRender={() => iconMenuData}
+      rightContentRender={() => <RightContent/>}
       {...props}
       {...settings}
     >
@@ -146,7 +176,8 @@ const BasicLayout = props => {
   );
 };
 
-export default connect(({ global, settings }) => ({
+export default connect(({global, settings, ...state}) => ({
   collapsed: global.collapsed,
   settings,
+  state
 }))(BasicLayout);
