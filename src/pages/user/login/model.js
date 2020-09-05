@@ -26,8 +26,15 @@ const Model = {
   subscriptions: {
     // 触发器。setup表示初始化即调用。其他用法见官方文档。https://github.com/sorrycc/blog/issues/62
     // 一开始触发*fetch方法获取验证码的信息
-    setup({ dispatch }) {
-      dispatch({ type: 'init' });
+    // setup({ dispatch }) {
+    //   dispatch({ type: '/user/login' });
+    // },
+    setup({ dispatch, history }) {
+      history.listen((location) => {
+        if (location.pathname === '/user/login') {
+          dispatch({ type: 'init' });
+        }
+      });
     },
   },
   effects: {
