@@ -1,24 +1,24 @@
 import React from 'react';
-import { connect } from 'dva';
+import {connect} from 'dva';
 import moment from 'moment';
 import styles from '../../global.less';
 import Link from '@/custdef/Link';
-import { Button, Drawer, Layout, Popconfirm, Table } from 'antd';
-import { formatMessage } from 'umi';
-import { PlusOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import {Button, Drawer, Layout, Popconfirm, Table} from 'antd';
+import {formatMessage} from 'umi';
+import {PlusOutlined, UnorderedListOutlined} from '@ant-design/icons';
 import appStyle from '@/global.less';
 import ResourcesEditSlip from '@/pages/resources/resourcesEditSlip';
-import { formatThousand } from '@/utils/utils';
+import {formatThousand} from '@/utils/utils';
 import ResourcesManageHeader from '@/pages/resourcesManage/ResourcesManageHeader';
 import ResourcesManageEditSlip from '@/pages/resourcesManage/resourcesManageEditSlip';
 
-const { Content, Header } = Layout;
+const {Content, Header} = Layout;
 const namespace = 'ResourcesManage';
 
 class ResourcesManage extends React.Component {
 
   changePage(current) {
-    const { dispatch } = this.props;
+    const {dispatch} = this.props;
     dispatch({
       type: namespace + '/initData',
       payload: {
@@ -28,7 +28,7 @@ class ResourcesManage extends React.Component {
   }
 
   handleTableChange = (pagination, filters, sorter) => {
-    const { dispatch } = this.props;
+    const {dispatch} = this.props;
     dispatch({
       type: namespace + `/initData`,
       payload: {
@@ -40,7 +40,7 @@ class ResourcesManage extends React.Component {
   };
 
   onShowSizeChange = (current, pageSize) => {
-    const { dispatch } = this.props;
+    const {dispatch} = this.props;
     dispatch({
       type: namespace + '/initData',
       payload: {
@@ -51,7 +51,7 @@ class ResourcesManage extends React.Component {
 
 
   handleEdit = (record) => {
-    const { dispatch } = this.props;
+    const {dispatch} = this.props;
     dispatch({
       type: namespace + '/jumpToEdit',
       payload: {
@@ -62,7 +62,7 @@ class ResourcesManage extends React.Component {
   };
 
   onCloseEdit = () => {
-    const { dispatch } = this.props;
+    const {dispatch} = this.props;
     dispatch({
       type: namespace + '/jumpToEdit',
       payload: {
@@ -72,7 +72,7 @@ class ResourcesManage extends React.Component {
   };
 
   confirm = (record) => {
-    const { dispatch } = this.props;
+    const {dispatch} = this.props;
     dispatch({
       type: namespace + '/deleteItem',
       payload: {
@@ -86,8 +86,8 @@ class ResourcesManage extends React.Component {
   };
 
   render() {
-    const { resourcesList, total, pages, loading, visibleEdit } = this.props;
-    const { current, pageSize } = pages;
+    const {resourcesList, total, pages, loading, visibleEdit} = this.props;
+    const {current, pageSize} = pages;
     const columns = [
       {
         title: '品牌',
@@ -111,7 +111,7 @@ class ResourcesManage extends React.Component {
         sorter: true,
         fixed: 'left',
         width: 100,
-      },{
+      }, {
         title: '材质',
         dataIndex: 'material',
         key: 'MATERIAL',
@@ -132,7 +132,7 @@ class ResourcesManage extends React.Component {
         width: 150,
         render(text) {
           return (
-            <span style={{ color: '#f40' }}>￥{formatThousand(text)}</span>
+            <span style={{color: '#f40'}}>￥{formatThousand(text)}</span>
           );
         },
       },
@@ -144,7 +144,7 @@ class ResourcesManage extends React.Component {
         width: 200,
         render(text) {
           return (
-            <span>{!_.eq(text, null) ? moment(text).format('YYYY-MM-DD HH:mm') : '-'}</span>
+            <span>{text != null ? moment(text).format('YYYY-MM-DD HH:mm') : '-'}</span>
           );
         },
       },
@@ -157,9 +157,9 @@ class ResourcesManage extends React.Component {
           <span className={styles.linkMargins}>
             {record && record.ynFlag === 'Y' && <Link onClick={() => this.handleEdit(record)}>编辑</Link>}
             {record && record.ynFlag === 'Y' &&
-            <Popconfirm title={formatMessage({ id: 'management.link.title' })}
-                        okText={formatMessage({ id: 'management.link.yes' })}
-                        cancelText={formatMessage({ id: 'management.link.no' })}
+            <Popconfirm title={formatMessage({id: 'management.link.title'})}
+                        okText={formatMessage({id: 'management.link.yes'})}
+                        cancelText={formatMessage({id: 'management.link.no'})}
                         onConfirm={() => this.confirm(record)}
                         onCancel={this.cancel}
             >
@@ -231,8 +231,8 @@ class ResourcesManage extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { loading, resourcesList, total, pages, visibleEdit } = state[namespace];
-  return { loading, resourcesList, total, pages, visibleEdit };
+  const {loading, resourcesList, total, pages, visibleEdit} = state[namespace];
+  return {loading, resourcesList, total, pages, visibleEdit};
 }
 
 export default connect(mapStateToProps)(ResourcesManage);

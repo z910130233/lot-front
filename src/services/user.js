@@ -13,6 +13,13 @@ export async function queryNotices() {
   return request('/api/notices');
 }
 
-export async function getRoutes() {
-  return request('/api/example');
+// export async function getRoutes() {
+//   return request('/api/examples');
+// }
+
+export async function getRoutes(params) {
+  return request('/lot/routes/findlist', {
+    method: 'POST',
+    data: params,
+  });
 }

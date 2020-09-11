@@ -31,18 +31,16 @@ const UserModel = {
       const result = yield call(getRoutes);
       yield put({
         type: 'updateState',
-        payload: result,
+        payload: result.data,
       });
-      console.log(result)
-      console.log("调用了")
     }
   },
   reducers: {
     saveCurrentUser(state, action) {
       return {...state, currentUser: action.payload || {}};
     },
-    updateState(state, { payload }) {
-      return { ...state, ...payload };
+    updateState(state, {payload}) {
+      return {...state, ...payload};
     },
 
     changeNotifyCount(

@@ -45,14 +45,15 @@ const menuDataRender = menuList =>
     return Authorized.check(item.authority, localItem, null);
   });
 
-const mappingIcon = (menuData) => {
-  const mappingMenus = menuData.map(item => ({
-    ...item,
-    icon: iconEnum[item.icon],
-    children: item.children ? mappingIcon(item.children) : [],
-  }));
-  return mappingMenus;
-};
+const mappingIcon = (menuData) =>
+  menuData.map(item => {
+    const localItem = {
+      ...item,
+      icon: iconEnum[item.icon],
+      children: item.children ? mappingIcon(item.children) : []
+    };
+    return Authorized.check(item.authority, localItem, null);
+  });
 
 const defaultFooterDom = (
   <DefaultFooter
@@ -96,9 +97,8 @@ const BasicLayout = props => {
   const {user} = state;
   const {routes} = user;
   menuData = typeof (routes) == "undefined" && routes == null ? [] : routes;
-  console.log(menuData)
+
   const iconMenuData = mappingIcon(menuData);
-  console.log(iconMenuData)
 
   useEffect(() => {
     if (dispatch) {

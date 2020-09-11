@@ -69,7 +69,7 @@ export default defineConfig({
                   name: 'userManage',
                   icon: 'solution',
                   component: './management',
-                  authority: ['[admin]'],
+                  authority: ['[user]'],
                 },
                 {
                   path: '/admin/authorityManagement',
@@ -206,3 +206,4 @@ export default defineConfig({
     basePath: '/',
   },
 });
+

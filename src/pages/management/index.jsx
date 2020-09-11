@@ -1,9 +1,9 @@
 import React from 'react';
-import { connect } from 'dva';
-import { PlusOutlined, UnorderedListOutlined, WechatOutlined, LaptopOutlined } from '@ant-design/icons';
-import { Table, Avatar, Button, Layout, Drawer, Tag, Popconfirm } from 'antd';
+import {connect} from 'dva';
+import {PlusOutlined, UnorderedListOutlined, WechatOutlined, LaptopOutlined} from '@ant-design/icons';
+import {Table, Avatar, Button, Layout, Drawer, Tag, Popconfirm} from 'antd';
 import Link from '../../custdef/Link';
-import { formatMessage } from 'umi';
+import {formatMessage} from 'umi';
 import styles from './index.less';
 import appStyle from '../../global.less';
 import HeaderSearch from '@/pages/management/HeaderSearch';
@@ -11,9 +11,9 @@ import moment from 'moment';
 import ManagementEditSlip from '@/pages/management/managementEditSlip';
 import ManagementViewSlip from '@/pages/management/managementViewSlip';
 import PageHeaderWrapper from '@ant-design/pro-layout/es/PageHeaderWrapper';
-import { beautySub } from '@/utils/utils';
+import {beautySub} from '@/utils/utils';
 
-const { Content, Header } = Layout;
+const {Content, Header} = Layout;
 
 class Management extends React.Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class Management extends React.Component {
   }
 
   changePage(current) {
-    const { dispatch } = this.props;
+    const {dispatch} = this.props;
     dispatch({
       type: 'management/initData',
       payload: {
@@ -31,7 +31,7 @@ class Management extends React.Component {
   }
 
   handleTableChange = (pagination, filters, sorter) => {
-    const { dispatch } = this.props;
+    const {dispatch} = this.props;
     dispatch({
       type: `management/tableChange`,
       payload: {
@@ -43,7 +43,7 @@ class Management extends React.Component {
   };
 
   onShowSizeChange = (current, pageSize) => {
-    const { dispatch } = this.props;
+    const {dispatch} = this.props;
     dispatch({
       type: 'management/initPageSize',
       payload: {
@@ -53,7 +53,7 @@ class Management extends React.Component {
   };
 
   handleEdit = (record) => {
-    const { dispatch } = this.props;
+    const {dispatch} = this.props;
     dispatch({
       type: 'management/jumpToEdit',
       payload: {
@@ -64,7 +64,7 @@ class Management extends React.Component {
   };
 
   handleView = (record) => {
-    const { dispatch } = this.props;
+    const {dispatch} = this.props;
     dispatch({
       type: 'management/jumpToView',
       payload: {
@@ -76,7 +76,7 @@ class Management extends React.Component {
 
 
   onCloseView = () => {
-    const { dispatch } = this.props;
+    const {dispatch} = this.props;
     dispatch({
       type: 'management/jumpToView',
       payload: {
@@ -86,7 +86,7 @@ class Management extends React.Component {
   };
 
   onCloseEdit = () => {
-    const { dispatch } = this.props;
+    const {dispatch} = this.props;
     dispatch({
       type: 'management/jumpToEdit',
       payload: {
@@ -96,7 +96,7 @@ class Management extends React.Component {
   };
 
   confirm = (record) => {
-    const { dispatch } = this.props;
+    const {dispatch} = this.props;
     dispatch({
       type: 'management/deleteItem',
       payload: {
@@ -110,8 +110,8 @@ class Management extends React.Component {
   };
 
   render() {
-    const { userList, total, pages, loading, visibleEdit, visibleView, disableBtn } = this.props;
-    const { current, pageSize } = pages;
+    const {userList, total, pages, loading, visibleEdit, visibleView, disableBtn} = this.props;
+    const {current, pageSize} = pages;
     // console.log(states);
     const columns = [
       {
@@ -125,7 +125,7 @@ class Management extends React.Component {
           return <Avatar shape="square" size="large" src={text}/>;
         },
       }, {
-        title: formatMessage({ id: 'management.username' }),
+        title: formatMessage({id: 'management.username'}),
         dataIndex: 'userName',
         key: 'USERNAME',
         width: 200,
@@ -139,9 +139,9 @@ class Management extends React.Component {
         sorter: true,
         render: (text, row) => {
           if (row.openId != null) {
-            return <span style={{ color: 'green' }}><WechatOutlined/>微信</span>;
+            return <span style={{color: 'green'}}><WechatOutlined/>微信</span>;
           } else {
-            return <span style={{ color: 'red' }}><LaptopOutlined/>系统</span>;
+            return <span style={{color: 'red'}}><LaptopOutlined/>系统</span>;
           }
         },
       }, {
@@ -163,7 +163,7 @@ class Management extends React.Component {
         width: 200,
         sorter: true,
         render: (text) => {
-          return <span>{beautySub(text,11)}</span>
+          return <span>{beautySub(text, 11)}</span>
         },
       }, {
         title: '状态',
@@ -190,7 +190,7 @@ class Management extends React.Component {
         sorter: true,
         render: (text, row) => {
           return (
-            <span>{!_.eq(text, null) ? moment(text).format('YYYY-MM-DD HH:mm') : '-'}</span>
+            <span>{text != null ? moment(text).format('YYYY-MM-DD HH:mm') : '-'}</span>
           );
         },
       }, {
@@ -201,12 +201,13 @@ class Management extends React.Component {
         fixed: 'right',
         render: (text, record) => (
           <span className={styles.linkMargins}>
-            {record && record.ynFlag === 'Y' && <Link disabled={record.openId != null} onClick={() => this.handleEdit(record)}>编辑</Link>}
+            {record && record.ynFlag === 'Y' &&
+            <Link disabled={record.openId != null} onClick={() => this.handleEdit(record)}>编辑</Link>}
             {record && record.ynFlag === 'Y' && <Link onClick={() => this.handleView(record)}>查看</Link>}
             {record && record.ynFlag === 'Y' &&
-            <Popconfirm title={formatMessage({ id: 'management.link.title' })}
-                        okText={formatMessage({ id: 'management.link.yes' })}
-                        cancelText={formatMessage({ id: 'management.link.no' })}
+            <Popconfirm title={formatMessage({id: 'management.link.title'})}
+                        okText={formatMessage({id: 'management.link.yes'})}
+                        cancelText={formatMessage({id: 'management.link.no'})}
                         onConfirm={() => this.confirm(record)}
                         onCancel={this.cancel}
             >
@@ -291,9 +292,9 @@ class Management extends React.Component {
 };
 
 function mapStateToProps(state) {
-  const { userList, total, pages, loading, visibleEdit, userData, disableBtn, visibleView } = state.management;
+  const {userList, total, pages, loading, visibleEdit, userData, disableBtn, visibleView} = state.management;
   // console.log(states);
-  return { userList, total, pages, loading, visibleEdit, userData, disableBtn, visibleView };
+  return {userList, total, pages, loading, visibleEdit, userData, disableBtn, visibleView};
 }
 
 export default connect(mapStateToProps)(Management);

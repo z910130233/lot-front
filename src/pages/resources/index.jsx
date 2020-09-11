@@ -143,7 +143,7 @@ class Resources extends React.Component {
         width: 200,
         render(text) {
           return (
-            <span>{!_.eq(text, null) ? moment(text).format('YYYY-MM-DD HH:mm') : '-'}</span>
+            <span>{text != null ? moment(text).format('YYYY-MM-DD HH:mm') : '-'}</span>
           );
         },
       }, {
@@ -154,7 +154,7 @@ class Resources extends React.Component {
         width: 200,
         render(text) {
           return (
-            <span>{!_.eq(text, null) ? moment(text).format('YYYY-MM-DD HH:mm') : '-'}</span>
+            <span>{text != null ? moment(text).format('YYYY-MM-DD HH:mm') : '-'}</span>
           );
         },
       }, {
