@@ -10,7 +10,7 @@ const proSettings = {
   menu: {
     locale: true,
   },
-  title: '汉钢造',
+  title: 'LOT-DEMO',
   pwa: false,
   iconfontUrl: '',
 };
