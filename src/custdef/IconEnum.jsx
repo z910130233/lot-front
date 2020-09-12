@@ -15,6 +15,7 @@ import ExperimentOutlined from "@ant-design/icons/lib/icons/ExperimentOutlined";
 import FundViewOutlined from "@ant-design/icons/lib/icons/FundViewOutlined";
 import NodeIndexOutlined from "@ant-design/icons/lib/icons/NodeIndexOutlined";
 import HighlightOutlined from "@ant-design/icons/lib/icons/HighlightOutlined";
+import SolutionOutlined from "@ant-design/icons/lib/icons/SolutionOutlined";
 
 /**
  * 定义图标枚举用于菜单图标显示问题
@@ -40,6 +41,7 @@ const iconEnum = {
   fundView: <FundViewOutlined/>,
   nodeIndex: <NodeIndexOutlined/>,
   highlight: <HighlightOutlined/>,
+  solution: <SolutionOutlined/>,
 };
 
 export default iconEnum;
