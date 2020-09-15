@@ -33,12 +33,6 @@ const noMatch = (
  */
 let menuData = [];
 
-// const menuDataRenders = () =>
-//   routesList.map(item => {
-//     const localItem = {...item, children: item.children ? menuDataRenders(item.children) : []};
-//     return Authorized.check(item.authority, localItem, null);
-//   });
-
 const menuDataRender = menuList =>
   menuList.map(item => {
     const localItem = {...item, children: item.children ? menuDataRender(item.children) : []};
