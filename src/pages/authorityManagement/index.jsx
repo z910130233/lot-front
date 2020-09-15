@@ -125,7 +125,7 @@ class Authority extends React.Component {
         <div className={styles.authorityBox}>
           <UnorderedListOutlined/>
           权限管理
-          <span style={{ margin: 8,color: "red" }}>(非专业人员请勿操作此列表，否则会暴露接口导致系统安全性降低)</span>
+          {/*<span style={{ margin: 8,color: "red" }}>(非专业人员请勿操作此列表，否则会暴露接口导致系统安全性降低)</span>*/}
         </div>
         <Tabs tabBarExtraContent={operations} defaultActiveKey="0" keyboard={false} animated={false}
               onChange={this.onChange}>

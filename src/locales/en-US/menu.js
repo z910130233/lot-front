@@ -6,6 +6,7 @@ export default {
   'menu.admin.sub-page': 'Sub-Page',
   'menu.admin.userManage': 'userManage',
   'menu.admin.authorityManagement': 'Authority management',
+  'menu.admin.pageManage': 'Page Manage',
   'menu.resources': 'Resources management',
   'menu.resources.resourcesManage': 'Home management',
   'menu.resources.resources_index': 'Resources Manage',

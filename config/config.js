@@ -77,6 +77,12 @@ export default defineConfig({
                   icon: 'tool',
                   component: './authorityManagement',
                   authority: ['[admin]'],
+                },{
+                  path: '/admin/pagemanage',
+                  name: 'pageManage',
+                  icon: 'tool',
+                  component: './pageManage',
+                  authority: ['[admin]'],
                 },
               ],
             },
