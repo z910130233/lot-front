@@ -24,7 +24,7 @@ const PageDataShow = (props) => {
   };
 
   const onValuesChange = value => {
-    // console.log(value);
+
   };
 
   if (data != null) {
