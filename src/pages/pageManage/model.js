@@ -4,6 +4,7 @@ const Model = {
   namespace: 'PageManage',
   state: {
     visible: false,
+    loading: false
   },
   reducers: {
     updateState(state, { payload }) {

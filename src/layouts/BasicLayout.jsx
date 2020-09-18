@@ -90,7 +90,7 @@ const BasicLayout = props => {
    */
   const { user } = state;
   let routes = [];
-  if (user.routes != null) {
+  if (typeof user.routes != 'undefined') {
     routes = user.routes;
   }
 

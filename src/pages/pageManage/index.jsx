@@ -1,16 +1,19 @@
 import React from 'react';
 import { connect } from 'dva';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { Layout, Menu, Modal, Tooltip } from 'antd';
+import { Layout, Menu, Modal, Skeleton, Tooltip } from 'antd';
 import { Link } from 'react-router-dom';
 import iconEnum from '@/custdef/IconEnum';
 import style from './index.less';
 import PlusCircleOutlined from '@ant-design/icons/lib/icons/PlusCircleOutlined';
+import PageDataShow from '@/pages/pageManage/PageDataShow';
 
 const { Header, Footer, Sider, Content } = Layout;
 const { SubMenu } = Menu;
 
 const namespace = 'PageManage';
+
+let props;
 
 const mappingIcon = menuData => {
   const mappingMenu = menuData.map(item => ({
@@ -21,7 +24,7 @@ const mappingIcon = menuData => {
   return mappingMenu;
 };
 
-const IconOnClick = (e, props, routesId) => {
+const IconOnClick = (e, routesId) => {
   e.stopPropagation();
   const { dispatch } = props;
   dispatch({
@@ -37,6 +40,10 @@ const IconOnClick = (e, props, routesId) => {
 
 class PageManage extends React.Component {
 
+  componentWillMount() {
+    props = this.props;
+  }
+
   menuTag = function deep(menuData) {
     if (menuData && menuData.length > 0) {
       return menuData.map(item => {
@@ -47,7 +54,7 @@ class PageManage extends React.Component {
                        title={<span>{item.title}<span className={style.index_top}><Tooltip
                          title="添加子菜单"><PlusCircleOutlined
                          className={style.iconHover}
-                         onClick={(e) => IconOnClick(e, this.props, item.routesId)}/></Tooltip></span></span>}>
+                         onClick={(e) => IconOnClick(e, item.routesId)}/></Tooltip></span></span>}>
                 {deep(item.children)}
               </SubMenu>
             );
@@ -58,7 +65,7 @@ class PageManage extends React.Component {
               {/*<span>{item.title}</span>*/}
               <span>{item.title}<span className={style.index_top}><Tooltip title="添加子菜单"><PlusCircleOutlined
                 className={style.iconHover}
-                onClick={(e) => IconOnClick(e, this.props, item.routesId)}/></Tooltip></span></span>
+                onClick={(e) => IconOnClick(e, item.routesId)}/></Tooltip></span></span>
             </Menu.Item>);
         }
       });
@@ -76,9 +83,11 @@ class PageManage extends React.Component {
   };
 
   render() {
-    const { visible, routesData } = this.props;
-    const { routes } = routesData;
-
+    const { visible, routesData, loading } = this.props;
+    let routes = [];
+    if (typeof routesData.routes != 'undefined') {
+      routes = routesData.routes;
+    }
     const iconMenuData = mappingIcon(routes);
 
     return (
@@ -102,8 +111,13 @@ class PageManage extends React.Component {
             </Modal>
           </Sider>
           <Layout>
-            <Content>
-              Content
+            <Content className={style.contents}>
+              <Skeleton loading={loading} className={style.contents_Skeleton} active paragraph={{ rows: 25 }}>
+                <div className={style.top_box}>
+                  <div>页面管理设置</div>
+                </div>
+                <PageDataShow/>
+              </Skeleton>
             </Content>
           </Layout>
         </Layout>
@@ -113,8 +127,8 @@ class PageManage extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { visible, routesData } = state[namespace];
-  return { visible, routesData };
+  const { visible, routesData, loading } = state[namespace];
+  return { visible, routesData, loading };
 }
 
 export default connect(mapStateToProps)(PageManage);
