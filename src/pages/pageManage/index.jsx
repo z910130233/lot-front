@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'dva';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { Layout, Menu, Modal, Skeleton, Tooltip } from 'antd';
-import { Link } from 'react-router-dom';
 import iconEnum from '@/custdef/IconEnum';
 import style from './index.less';
 import PlusCircleOutlined from '@ant-design/icons/lib/icons/PlusCircleOutlined';
@@ -14,6 +13,7 @@ const { SubMenu } = Menu;
 const namespace = 'PageManage';
 
 let props;
+let keys;     //定义的是当前选择的那个菜单key值
 
 const mappingIcon = menuData => {
   const mappingMenu = menuData.map(item => ({
@@ -34,14 +34,37 @@ const IconOnClick = (e, routesId) => {
       routesId: routesId,
     },
   });
-  console.log(props);
-  console.log(routesId);
 };
 
 class PageManage extends React.Component {
 
   componentWillMount() {
     props = this.props;
+    const { routesData, dispatch } = this.props;
+    // const iconMenuData = mappingIcon(routes);
+    for (let i = 0; i < routesData.routes.length; i++) {
+      if (routesData.routes[i].title != null && routesData.routes[i].title != '') {
+        keys = routesData.routes[i].routesId;
+        break;
+      }
+    }
+    dispatch({
+      type: namespace + '/changeKey',
+      payload: {
+        key: keys,
+      },
+    });
+    console.log(keys);
+  }
+
+  componentDidMount() {
+    // const { dispatch } = this.props;
+    // dispatch({
+    //   type: namespace + '/changeKey',
+    //   payload: {
+    //     key: keys,
+    //   },
+    // });
   }
 
   menuTag = function deep(menuData) {
@@ -82,10 +105,15 @@ class PageManage extends React.Component {
     });
   };
 
+  handleClick = e => {
+    console.log('click ', e);
+  };
+
   render() {
     const { visible, routesData, loading } = this.props;
     let routes = [];
-    if (typeof routesData.routes != 'undefined') {
+    if (typeof routesData == 'undefined') {
+    } else {
       routes = routesData.routes;
     }
     const iconMenuData = mappingIcon(routes);
@@ -97,6 +125,8 @@ class PageManage extends React.Component {
             <Menu
               mode="inline"
               theme="light"
+              defaultSelectedKeys={[keys]}
+              onClick={this.handleClick}
             >
               {this.menuTag(iconMenuData)}
             </Menu>

@@ -1,10 +1,10 @@
-import { getRoutes } from '@/services/user';
+import { getRoutes, get } from '@/services/user';
 
 const Model = {
   namespace: 'PageManage',
   state: {
     visible: false,
-    loading: false
+    loading: false,
   },
   reducers: {
     updateState(state, { payload }) {
@@ -24,7 +24,20 @@ const Model = {
       yield put({
         type: 'updateState',
         payload: { visible: visible },
-      })
+      });
+    },
+    * changeKey({ payload }, { call, put, select }) {
+      yield put({
+        type: 'updateState',
+        payload: { loading: true },
+      });
+      const { key } = payload;
+      console.log(key);
+      const result = yield call(get, key);
+      yield put({
+        type: 'updateState',
+        payload: { data: result.data.routes,loading: false },
+      });
     },
   },
   subscriptions: {
