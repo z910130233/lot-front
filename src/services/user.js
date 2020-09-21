@@ -23,3 +23,7 @@ export async function getRoutes(params) {
     data: params,
   });
 }
+
+export async function get(routesId) {
+  return request(`/lot/routes/get?routesId=`+routesId);
+}

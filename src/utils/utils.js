@@ -68,12 +68,33 @@ const sleep = (time) => {
 export const beautySub = (str, len) => {
   if (str != null)
     return '...'.padStart(len, str);
-  else return "";
+  else return '';
 };
 
 //千分位分割
 export const formatThousand = (num) => {
 
-  return (num+ '').replace(/(\d{1,3})(?=(\d{3})+(?:$|\.))/g,'$1,');
+  return (num + '').replace(/(\d{1,3})(?=(\d{3})+(?:$|\.))/g, '$1,');
 
-}
+};
+
+//标签颜色
+export const colorChange = () => {
+  const i = parseInt(Math.random()*(11-0+1)+0);
+  let color;
+  switch (i) {
+    case 0: color = "#f50"; break;
+    case 1: color = "#2db7f5";break;
+    case 2: color = "#87d068";break;
+    case 3: color = "#108ee9";break;
+    case 4: color = "#ef5b9c";break;
+    case 5: color = "#f58220";break;
+    case 6: color = "#ed1941";break;
+    case 7: color = "#ea66a6";break;
+    case 8: color = "#8552a1";break;
+    case 9: color = "#2a5caa";break;
+    case 10: color = "#7fb80e";break;
+    case 11: color = "#009ad6";break;
+  }
+  return color;
+};
