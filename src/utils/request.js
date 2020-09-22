@@ -26,7 +26,6 @@ const codeMessage = {
 /**
  * 异常处理程序
  */
-
 const errorHandler = error => {
   const { response } = error;
 
@@ -56,4 +55,6 @@ const request = extend({
   // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
 });
+
+
 export default request;
