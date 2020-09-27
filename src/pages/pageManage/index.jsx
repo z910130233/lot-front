@@ -13,7 +13,6 @@ const { SubMenu } = Menu;
 const namespace = 'PageManage';
 
 let props;
-let keys;     //定义的是当前选择的那个菜单key值
 
 const mappingIcon = menuData => {
   const mappingMenu = menuData.map(item => ({
@@ -40,31 +39,13 @@ class PageManage extends React.Component {
 
   componentWillMount() {
     props = this.props;
-    const { routesData, dispatch } = this.props;
-    // const iconMenuData = mappingIcon(routes);
-    for (let i = 0; i < routesData.routes.length; i++) {
-      if (routesData.routes[i].title != null && routesData.routes[i].title != '') {
-        keys = routesData.routes[i].routesId;
-        break;
-      }
-    }
+    const { keys, dispatch } = this.props;
     dispatch({
       type: namespace + '/changeKey',
       payload: {
         key: keys,
       },
     });
-    console.log(keys);
-  }
-
-  componentDidMount() {
-    // const { dispatch } = this.props;
-    // dispatch({
-    //   type: namespace + '/changeKey',
-    //   payload: {
-    //     key: keys,
-    //   },
-    // });
   }
 
   menuTag = function deep(menuData) {
@@ -110,7 +91,7 @@ class PageManage extends React.Component {
   };
 
   render() {
-    const { visible, routesData, loading } = this.props;
+    const { visible, routesData, loading, keys } = this.props;
     let routes = [];
     if (typeof routesData == 'undefined') {
     } else {
@@ -157,8 +138,8 @@ class PageManage extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { visible, routesData, loading } = state[namespace];
-  return { visible, routesData, loading };
+  const { visible, routesData, loading, keys } = state[namespace];
+  return { visible, routesData, loading, keys };
 }
 
 export default connect(mapStateToProps)(PageManage);
