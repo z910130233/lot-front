@@ -14,9 +14,18 @@ const Model = {
   effects: {
     * init(params, { call, put, select }) {
       const result = yield call(getRoutes);
+      const { data } = result;
+      const { routes } = data;
+      let keys;
+      for (let i = 0; i < routes.length; i++) {
+        if (routes[i].title != null && routes[i].title != '') {
+          keys = routes[i].routesId;
+          break;
+        }
+      }
       yield put({
         type: 'updateState',
-        payload: { routesData: result.data },
+        payload: { routesData: result.data, keys: keys },
       });
     },
     * changeModal({ payload }, { call, put, select }) {
@@ -32,11 +41,10 @@ const Model = {
         payload: { loading: true },
       });
       const { key } = payload;
-      console.log(key);
       const result = yield call(get, key);
       yield put({
         type: 'updateState',
-        payload: { data: result.data.routes,loading: false },
+        payload: { data: result.data.routes, loading: false },
       });
     },
   },

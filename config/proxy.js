@@ -26,7 +26,7 @@ export default {
   },
   pre: {
     '/lot/': {
-      target: 'http://zhangel.top:9090',
+      target: 'http://47.99.98.83:9090/',
       changeOrigin: true,
       pathRewrite: {
         '^': '',
