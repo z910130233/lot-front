@@ -57,16 +57,19 @@ const Model = {
       const payloads = Object.assign(verKeys, payload);
       handleLocalStorage('set', 'username', payloads.username);
       const response = yield call(fakeAccountLogin, payloads);
-      if (response.status === 500) {
+      console.log(response.status);
+      console.log(response.status === '200');
+      if (response.status === '500') {
         message.error('验证码错误');
         yield put({
           type: 'init',
         });
-      } else if (response.status === 501) {
+      } else if (response.status === '501') {
         message.error('账号或密码错误');
         window.location.reload();
       }
-      if (response.status === 200) {
+      if (response.status === '200') {
+        console.log("1");
         response.status = 'ok';
         sessionStorage.setItem('token', response.data.sessionId);
         message.info('登录成功');
