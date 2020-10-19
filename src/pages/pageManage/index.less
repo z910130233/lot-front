@@ -50,3 +50,18 @@
   padding: 10px;
   //border-bottom: 1px #EEEEEE solid;
 }
+
+.n{
+  background-color: #19be6b;
+}
+
+.override-ant-btn{
+  :global(.ant-btn){
+    color: blue;
+    width: 100%;
+    background-color: transparent;
+  }
+  :global(.ant-btn:hover){
+    background-color: red;
+  }
+}

@@ -50,6 +50,21 @@ const PageDataShow = (props) => {
   return (
     <Form form={form} layout={'vertical'} name="control-ref"
           onFinish={onFinish} onValuesChange={onValuesChange} className={style.forms}>
+      <div className={style.n}>
+        <span className={style["override-ant-btn"]}>
+          <Button>zheshi</Button>
+          <Button>zheshi</Button>
+          <Button>zheshi</Button>
+          <Button>zheshi</Button>
+          <Button>zheshi</Button>
+        </span>
+        <span>
+          <Button>zheshi1</Button>
+        </span>
+        <span>
+          <Button>zheshi2</Button>
+        </span>
+      </div>
       <Row className={style.BottomSureBox}>
         <Col span={24}>
           <div

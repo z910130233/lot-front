@@ -189,7 +189,7 @@ class DemandIndex extends React.Component {
               </div>
             </div>
             <div className={appStyle.addButton}>
-              <Button type="primary" icon={<PlusOutlined/>} onClick={this.handleEdit} disabled>添加</Button>
+              <Button type="primary" icon={<PlusOutlined/>} onClick={this.handleEdit} >添加</Button>
             </div>
           </div>
           <Content className={styles.contents}>
